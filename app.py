@@ -46,7 +46,7 @@ import openai
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 
-if st.button("Analisar PDF"):
+if st.button("Analisar PDF com IA"):
     if uploaded_file and pergunta:
 
         texto = extrair_texto_pdf(uploaded_file)
