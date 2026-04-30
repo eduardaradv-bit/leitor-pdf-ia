@@ -1,4 +1,5 @@
 streamlit
-pymupdf
+PyMuPDF
 pytesseract
-pillow
+Pillow
+openai
