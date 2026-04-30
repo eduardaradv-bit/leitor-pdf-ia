@@ -42,3 +42,30 @@ if st.button("Analisar PDF"):
             st.success("PDF processado com sucesso!")
     else:
         st.error("Envie um PDF e preencha a pergunta.")
+import openai
+
+openai.api_key = st.secrets["OPENAI_API_KEY"]
+
+if st.button("Analisar PDF"):
+    if uploaded_file and pergunta:
+
+        texto = extrair_texto_pdf(uploaded_file)
+
+        resposta = openai.ChatCompletion.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "Você é uma advogada especialista em execução bancária. Seja objetiva e direta."},
+                {"role": "user", "content": f"""
+Analise o texto abaixo e responda a pergunta de forma objetiva:
+
+PERGUNTA:
+{pergunta}
+
+TEXTO:
+{texto[:15000]}
+"""}
+            ]
+        )
+
+        st.subheader("Resposta:")
+        st.write(resposta.choices[0].message.content)
